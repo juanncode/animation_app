@@ -45,6 +45,21 @@ class HeaderDiagonal extends StatelessWidget {
   }
 }
 
+class HeaderCurvo extends StatelessWidget {
+  const HeaderCurvo({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: double.infinity,
+      width: double.infinity,
+      child: CustomPaint(
+        painter: _HeaderCurvoPainter(),
+      ),
+    );
+  }
+}
+
 class _HeaderDiagonalPainter extends CustomPainter{
   @override
   void paint(Canvas canvas, Size size) {
@@ -65,6 +80,34 @@ class _HeaderDiagonalPainter extends CustomPainter{
     path.lineTo(0, 0);
     path.lineTo(0, size.height * 0.35);
 
+    canvas.drawPath(path, paint);
+
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+  
+}
+
+class _HeaderCurvoPainter extends CustomPainter{
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint();
+
+    // propiedades
+
+    paint.color = Colors.red;
+    paint.style = PaintingStyle.fill;
+    paint.strokeWidth = 5;
+
+    final path = Path();
+
+    // dibujar con el path y el lapiz 
+    path.lineTo(0, size.height * 0.20);
+    path.quadraticBezierTo(size.width * 0.5, size.height * 0.45, size.width, size.height * 0.20);
+    path.lineTo(size.width, 0);
     canvas.drawPath(path, paint);
 
   }
