@@ -29,6 +29,9 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado>  with SingleTickerPro
   late AnimationController controller;
   late Animation<num> rotation;
   late Animation<double> opacity;
+  late Animation<double> opacityOut;
+  late Animation<double> moveRigth;
+  late Animation<double> agrandar;
 
   @override
   void initState() {
@@ -42,6 +45,18 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado>  with SingleTickerPro
     );
 
     opacity = Tween(begin: 0.1, end: 1.0).animate(
+        CurvedAnimation(parent: controller, curve: const Interval(0, 0.25, curve: Curves.easeOut))
+    );
+
+    opacityOut = Tween(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(parent: controller, curve: const Interval(0.75, 1.0, curve: Curves.easeOut))
+    );
+
+    moveRigth = Tween(begin: 0.0, end: 200.0).animate(
+        CurvedAnimation(parent: controller, curve: const Interval(0, 0.25, curve: Curves.easeOut))
+    );
+
+    agrandar = Tween(begin: 1.0, end: 2.0).animate(
         CurvedAnimation(parent: controller, curve: const Interval(0, 0.25, curve: Curves.easeOut))
     );
 
@@ -67,12 +82,18 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado>  with SingleTickerPro
       animation: controller,
       child: _Rectangulo(),
       builder: (BuildContext context, Widget? child) {
-        return Transform.rotate(
-          angle: rotation.value.toDouble(),
-          child: Opacity(
-            opacity: opacity.value,
-            child: child,
-          )
+        return Transform.translate(
+          offset: Offset(moveRigth.value, 0),
+          child: Transform.rotate(
+            angle: rotation.value.toDouble(),
+            child: Opacity(
+              opacity: opacity.value  - opacityOut.value,
+              child: Transform.scale(
+                scale: agrandar.value,
+                child: child,
+              ),
+            )
+          ),
         );
           
       },
