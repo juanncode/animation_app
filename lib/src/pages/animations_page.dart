@@ -7,7 +7,7 @@ class AnimationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: CuadradoAnimado(),
       ),
@@ -28,6 +28,7 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado>  with SingleTickerPro
 
   late AnimationController controller;
   late Animation<num> rotation;
+  late Animation<double> opacity;
 
   @override
   void initState() {
@@ -38,6 +39,10 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado>  with SingleTickerPro
 
     rotation = Tween(begin: 0.0, end: pi * 2).animate(
       CurvedAnimation(parent: controller, curve: Curves.elasticInOut)
+    );
+
+    opacity = Tween(begin: 0.1, end: 1.0).animate(
+        CurvedAnimation(parent: controller, curve: const Interval(0, 0.25, curve: Curves.easeOut))
     );
 
     controller.addListener(() {
@@ -60,10 +65,14 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado>  with SingleTickerPro
     controller.forward();
     return AnimatedBuilder(
       animation: controller,
+      child: _Rectangulo(),
       builder: (BuildContext context, Widget? child) {
         return Transform.rotate(
           angle: rotation.value.toDouble(),
-          child: _Rectangulo()
+          child: Opacity(
+            opacity: opacity.value,
+            child: child,
+          )
         );
           
       },
@@ -88,7 +97,7 @@ class _Rectangulo extends StatelessWidget {
     return Container(
        width: 70,
        height: 70,
-       decoration: BoxDecoration(
+       decoration: const BoxDecoration(
          color: Colors.blue
        ),
      );
