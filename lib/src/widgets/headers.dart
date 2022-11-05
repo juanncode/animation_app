@@ -59,11 +59,11 @@ class _HeaderDiagonalPainter extends CustomPainter{
     final path = Path();
 
     // dibujar con el path y el lapiz 
-    path.moveTo(0, size.height * 0.5);
-    path.lineTo(size.width, size.height * 0.43);
+    path.moveTo(0, size.height * 0.35);
+    path.lineTo(size.width, size.height * 0.3);
     path.lineTo(size.width, 0);
     path.lineTo(0, 0);
-    path.lineTo(0, size.height * 0.5);
+    path.lineTo(0, size.height * 0.35);
 
     canvas.drawPath(path, paint);
 
