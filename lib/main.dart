@@ -1,5 +1,6 @@
 import 'package:animation_app/src/pages/animations_page.dart';
 import 'package:animation_app/src/labs/circular_progress_page.dart';
+import 'package:animation_app/src/pages/emergency/emergency_page.dart';
 import 'package:animation_app/src/pages/graficas_circulares_page.dart';
 import 'package:animation_app/src/pages/headers_page.dart';
 import 'package:animation_app/src/pages/pinterest_page.dart';
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
-      home: PinterestPage()
+      home: EmergencyPage()
     );
   }
 }
